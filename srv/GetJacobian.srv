@@ -1,0 +1,8 @@
+float32[] angles
+---
+float32[] jacobianr1
+float32[] jacobianr2
+float32[] jacobianr3
+float32[] jacobianr4
+float32[] jacobianr5
+float32[] jacobianr6
