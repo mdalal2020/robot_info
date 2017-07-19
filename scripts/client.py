@@ -3,14 +3,14 @@ import rospy
 from robot_info.srv import *
 import numpy as np
 
-def get_jacobian_client(name):
-    rospy.wait_for_service('get_jacobian')
+def get_robot_pose_jacobian_client(name, tip):
+    rospy.wait_for_service('get_robot_pose_jacobian')
     try:
-        get_jacobian = rospy.ServiceProxy('get_jacobian', GetJacobian, persistent=True)
-        resp = get_jacobian(name)
-        return np.array([resp.jacobianr1, resp.jacobianr2, resp.jacobianr3, resp.jacobianr4, resp.jacobianr5, resp.jacobianr6])
+        get_robot_pose_jacobian = rospy.ServiceProxy('get_robot_pose_jacobian', getRobotPoseAndJacobian, persistent=True)
+        resp = get_robot_pose_jacobian(name, tip)
+        return [resp.pose, np.array([resp.jacobianr1, resp.jacobianr2, resp.jacobianr3, resp.jacobianr4, resp.jacobianr5, resp.jacobianr6])]
     except rospy.ServiceException as e:
-        pass
+        print(e)
 
 if __name__ == "__main__":
-    print(get_jacobian_client('right'))
+    print(get_robot_pose_jacobian_client('right', '_gripper'))
