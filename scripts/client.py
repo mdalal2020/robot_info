@@ -1,9 +1,8 @@
-import sys
 import rospy
 from robot_info.srv import *
 import numpy as np
 
-def get_robot_pose_jacobian_client(name, tip):
+def get_robot_pose_jacobian_client(name, tip='right_gripper'):
     rospy.wait_for_service('get_robot_pose_jacobian')
     try:
         get_robot_pose_jacobian = rospy.ServiceProxy('get_robot_pose_jacobian', getRobotPoseAndJacobian, persistent=True)
@@ -13,4 +12,4 @@ def get_robot_pose_jacobian_client(name, tip):
         print(e)
 
 if __name__ == "__main__":
-    print(get_robot_pose_jacobian_client('right', '_upper_shoulder'))
+    print(get_robot_pose_jacobian_client('right', 'right_gripper'))
