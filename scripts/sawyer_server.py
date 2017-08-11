@@ -4,7 +4,7 @@ from robot_info.srv import *
 import rospy
 import numpy as np
 from urdf_parser_py.urdf import URDF
-import baxter_interface as bi
+import intera_interface as ii
 from pykdl_utils.kdl_kinematics import KDLKinematics
 
 kin_dict = {}
@@ -27,11 +27,9 @@ def get_robot_pose_jacobian_server():
     rospy.init_node('get_robot_pose_jacobian_server')
     robot = URDF.from_parameter_server(key='robot_description')
 
-    kin_dict['right'] = KDLKinematics(robot, 'base', 'right_gripper')
-    kin_dict['left'] = KDLKinematics(robot, 'base', 'left_gripper')
+    kin_dict['right'] = KDLKinematics(robot, 'base', 'right_hand')
 
-    arms_dict['right'] = bi.Limb('right')
-    arms_dict['left'] = bi.Limb('left')
+    arms_dict['right'] = ii.Limb('right')
 
     s = rospy.Service('get_robot_pose_jacobian', getRobotPoseAndJacobian, handle_get_robot_pose_jacobian)
     rospy.spin()
