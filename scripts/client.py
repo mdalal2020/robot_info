@@ -13,4 +13,4 @@ def get_robot_pose_jacobian_client(name, tip):
         print(e)
 
 if __name__ == "__main__":
-    print(get_robot_pose_jacobian_client('right', '_gripper'))
+    print(get_robot_pose_jacobian_client('right', '_hand'))
